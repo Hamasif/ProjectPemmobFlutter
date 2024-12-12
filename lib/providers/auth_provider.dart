@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:projectpemmob/models/user_model.dart';
 import 'package:projectpemmob/services/auth_service.dart';
 
+
 class AuthProvider with ChangeNotifier {
-  UserModel? _user;  // Make _user nullable to avoid initialization error
+  UserModel _user;
 
-  UserModel? get user => _user;
+  UserModel get user => _user;
 
-  set user(UserModel? user) {  // Nullable setter
+  set user(UserModel user) {
     _user = user;
     notifyListeners();
   }
 
   Future<bool> register({
-    required String name,
-    required String username,
-    required String email,
-    required String password,
+    String name,
+    String username,
+    String email,
+    String password,
   }) async {
     try {
       UserModel user = await AuthService().register(
@@ -35,8 +36,8 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<bool> login({
-    required String email,
-    required String password,
+    String email,
+    String password,
   }) async {
     try {
       UserModel user = await AuthService().login(

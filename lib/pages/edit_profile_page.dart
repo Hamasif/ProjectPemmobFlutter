@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:projectpemmob/models/user_model.dart';
+import 'package:projectpemmob/providers/auth_provider.dart';
 import 'package:projectpemmob/theme.dart';
+import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    PreferredSizeWidget header() {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
+    header() {
       return AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.close,
-            color: primaryTextColor,
-          ),
+          icon: Icon(Icons.close),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -20,7 +23,6 @@ class EditProfilePage extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'Edit Profile',
-          style: primaryTextStyle, // Tambahkan gaya teks jika perlu
         ),
         actions: [
           IconButton(
@@ -28,9 +30,7 @@ class EditProfilePage extends StatelessWidget {
               Icons.check,
               color: primaryColor,
             ),
-            onPressed: () {
-              // Tambahkan aksi di sini
-            },
+            onPressed: () {},
           )
         ],
       );
@@ -53,7 +53,7 @@ class EditProfilePage extends StatelessWidget {
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: 'Alex keinnzal',
+                hintText: user.name,
                 hintStyle: primaryTextStyle,
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -84,7 +84,7 @@ class EditProfilePage extends StatelessWidget {
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: '@alexkeinn',
+                hintText: '@${user.username}',
                 hintStyle: primaryTextStyle,
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -115,7 +115,7 @@ class EditProfilePage extends StatelessWidget {
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: 'alex.kein@gmail.com',
+                hintText: user.email,
                 hintStyle: primaryTextStyle,
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -145,9 +145,14 @@ class EditProfilePage extends StatelessWidget {
                 top: defaultMargin,
               ),
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image: AssetImage('assets/image_profile.png'))),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                    user.profilePhotoUrl,
+                  ),
+                ),
+              ),
             ),
             nameInput(),
             usernameInput(),
@@ -159,7 +164,7 @@ class EditProfilePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: backgroundColor3,
-      appBar: header(), // header sekarang sesuai dengan tipe PreferredSizeWidget
+      appBar: header(),
       body: content(),
       resizeToAvoidBottomInset: false,
     );

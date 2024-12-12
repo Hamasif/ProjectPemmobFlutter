@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectpemmob/theme.dart';
 
-class ChcekoutSuccessPage extends StatelessWidget {
+class CheckoutSuccessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     header() {
@@ -24,7 +24,9 @@ class ChcekoutSuccessPage extends StatelessWidget {
               'assets/icon_empty_cart.png',
               width: 80,
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: 20,
+            ),
             Text(
               'You made a transaction',
               style: primaryTextStyle.copyWith(
@@ -32,7 +34,9 @@ class ChcekoutSuccessPage extends StatelessWidget {
                 fontWeight: medium,
               ),
             ),
-            SizedBox(height: 12),
+            SizedBox(
+              height: 12,
+            ),
             Text(
               'Stay at home while we\nprepare your dream shoes',
               style: secondaryTextStyle,

@@ -1,16 +1,16 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 import 'package:projectpemmob/models/user_model.dart';
+import 'package:http/http.dart' as http;
 
 class AuthService {
   String baseUrl = 'https://shamo-backend.buildwithangga.id/api';
 
-  // Register method with required parameters
   Future<UserModel> register({
-    required String name,
-    required String username,
-    required String email,
-    required String password,
+    String name,
+    String username,
+    String email,
+    String password,
   }) async {
     var url = '$baseUrl/register';
     var headers = {'Content-Type': 'application/json'};
@@ -22,7 +22,7 @@ class AuthService {
     });
 
     var response = await http.post(
-      Uri.parse(url),  // Always use Uri.parse() when passing the URL to http.post
+      url,
       headers: headers,
       body: body,
     );
@@ -40,10 +40,9 @@ class AuthService {
     }
   }
 
-  // Login method with required parameters
   Future<UserModel> login({
-    required String email,
-    required String password,
+    String email,
+    String password,
   }) async {
     var url = '$baseUrl/login';
     var headers = {'Content-Type': 'application/json'};
@@ -53,7 +52,7 @@ class AuthService {
     });
 
     var response = await http.post(
-      Uri.parse(url),  // Always use Uri.parse() when passing the URL to http.post
+      url,
       headers: headers,
       body: body,
     );

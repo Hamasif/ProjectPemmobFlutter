@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:projectpemmob/models/user_model.dart';
+import 'package:projectpemmob/providers/auth_provider.dart';
+import 'package:projectpemmob/providers/product_provider.dart';
 import 'package:projectpemmob/theme.dart';
-import 'package:projectpemmob/widgets/product_card.dart';
 import 'package:projectpemmob/widgets/product_tile.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
+
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
@@ -20,18 +27,18 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Hallo, Alex',
+                    'Hallo, ${user.name}',
                     style: primaryTextStyle.copyWith(
                       fontSize: 24,
                       fontWeight: semiBold,
                     ),
                   ),
                   Text(
-                    '@alexkeinn',
+                    '@${user.username}',
                     style: subtitleTextStyle.copyWith(
                       fontSize: 16,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -41,12 +48,12 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: AssetImage(
-                    'assets/image_profile.png',
+                  image: NetworkImage(
+                    user.profilePhotoUrl,
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       );
@@ -69,9 +76,7 @@ class HomePage extends StatelessWidget {
                   horizontal: 12,
                   vertical: 10,
                 ),
-                margin: EdgeInsets.only(
-                  right: 16,
-                ),
+                margin: EdgeInsets.only(right: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: primaryColor,
@@ -89,9 +94,7 @@ class HomePage extends StatelessWidget {
                   horizontal: 12,
                   vertical: 10,
                 ),
-                margin: EdgeInsets.only(
-                  right: 16,
-                ),
+                margin: EdgeInsets.only(right: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
@@ -112,9 +115,7 @@ class HomePage extends StatelessWidget {
                   horizontal: 12,
                   vertical: 10,
                 ),
-                margin: EdgeInsets.only(
-                  right: 16,
-                ),
+                margin: EdgeInsets.only(right: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
@@ -135,9 +136,7 @@ class HomePage extends StatelessWidget {
                   horizontal: 12,
                   vertical: 10,
                 ),
-                margin: EdgeInsets.only(
-                  right: 16,
-                ),
+                margin: EdgeInsets.only(right: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
@@ -158,9 +157,7 @@ class HomePage extends StatelessWidget {
                   horizontal: 12,
                   vertical: 10,
                 ),
-                margin: EdgeInsets.only(
-                  right: 16,
-                ),
+                margin: EdgeInsets.only(right: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
@@ -199,11 +196,9 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    Widget popularProduct() {
+    Widget popularProducts() {
       return Container(
-        margin: EdgeInsets.only(
-          top: 14,
-        ),
+        margin: EdgeInsets.only(top: 14),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -212,12 +207,12 @@ class HomePage extends StatelessWidget {
                 width: defaultMargin,
               ),
               Row(
-                children: [
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                ],
-              )
+                children: productProvider.products
+                    .map(
+                      (product) => ProductCard(product),
+                    )
+                    .toList(),
+              ),
             ],
           ),
         ),
@@ -247,12 +242,11 @@ class HomePage extends StatelessWidget {
           top: 14,
         ),
         child: Column(
-          children: [
-            ProductTile(),
-            ProductTile(),
-            ProductTile(),
-            ProductTile(),
-          ],
+          children: productProvider.products
+              .map(
+                (product) => ProductTile(product),
+              )
+              .toList(),
         ),
       );
     }
@@ -262,7 +256,7 @@ class HomePage extends StatelessWidget {
         header(),
         categories(),
         popularProductsTitle(),
-        popularProduct(),
+        popularProducts(),
         newArrivalsTitle(),
         newArrivals(),
       ],
