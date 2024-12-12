@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:projectpemmob/theme.dart';
+import 'package:projectpemmob/controllers/auth_controller.dart';
 
 class ProfilePage extends StatelessWidget {
+  ProfilePage({Key? key}) : super(key: key);
+
+  final AuthController _authController = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     Widget header() {
@@ -29,24 +35,27 @@ class ProfilePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Halo, Alex',
-                        style: primaryTextStyle.copyWith(
-                          fontSize: 24,
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                      Text(
-                        '@alexkeinn',
-                        style: subtitleTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                      ),
+                      Obx(() => Text(
+                            'Halo, ${_authController.name.value.isEmpty ? "Guest" : _authController.name.value}',
+                            style: primaryTextStyle.copyWith(
+                              fontSize: 24,
+                              fontWeight: semiBold,
+                            ),
+                          )),
+                      Obx(() => Text(
+                            _authController.email.value.isEmpty
+                                ? 'Email not available'
+                                : _authController.email.value,
+                            style: subtitleTextStyle.copyWith(
+                              fontSize: 16,
+                            ),
+                          )),
                     ],
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
+                    _authController.logout();
                     Navigator.pushNamedAndRemoveUntil(
                         context, '/sign-in', (route) => false);
                   },
@@ -62,25 +71,28 @@ class ProfilePage extends StatelessWidget {
       );
     }
 
-    Widget menuItem(String text) {
-      return Container(
-        margin: EdgeInsets.only(
-          top: 16,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              text,
-              style: secondaryTextStyle.copyWith(
-                fontSize: 13,
+    Widget menuItem(String text, {VoidCallback? onTap}) {
+      return GestureDetector(
+        onTap: onTap,
+        child: Container(
+          margin: EdgeInsets.only(
+            top: 16,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                text,
+                style: secondaryTextStyle.copyWith(
+                  fontSize: 13,
+                ),
               ),
-            ),
-            Icon(
-              Icons.chevron_right,
-              color: primaryTextColor,
-            ),
-          ],
+              Icon(
+                Icons.chevron_right,
+                color: primaryTextColor,
+              ),
+            ],
+          ),
         ),
       );
     }
@@ -108,14 +120,14 @@ class ProfilePage extends StatelessWidget {
                   fontWeight: semiBold,
                 ),
               ),
-              GestureDetector(
+              menuItem(
+                'Edit Profile',
                 onTap: () {
                   Navigator.pushNamed(
-                    context, '/edit-profile');
+                    context,
+                    '/edit-profile',
+                  );
                 },
-                child: menuItem(
-                  'Edit Profile',
-                ),
               ),
               menuItem(
                 'Your Orders',

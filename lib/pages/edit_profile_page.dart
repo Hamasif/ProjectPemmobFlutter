@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:projectpemmob/theme.dart';
+import 'package:projectpemmob/controllers/auth_controller.dart';
 
 class EditProfilePage extends StatelessWidget {
+  EditProfilePage({Key? key}) : super(key: key);
+
+  final AuthController _userController = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     PreferredSizeWidget header() {
@@ -20,7 +26,7 @@ class EditProfilePage extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'Edit Profile',
-          style: primaryTextStyle, // Tambahkan gaya teks jika perlu
+          style: primaryTextStyle,
         ),
         actions: [
           IconButton(
@@ -29,7 +35,7 @@ class EditProfilePage extends StatelessWidget {
               color: primaryColor,
             ),
             onPressed: () {
-              // Tambahkan aksi di sini
+              // Tambahkan aksi simpan di sini
             },
           )
         ],
@@ -50,18 +56,20 @@ class EditProfilePage extends StatelessWidget {
                 fontSize: 13,
               ),
             ),
-            TextFormField(
-              style: primaryTextStyle,
-              decoration: InputDecoration(
-                hintText: 'Alex keinnzal',
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: subtitleColor,
+            Obx(() => TextFormField(
+                  initialValue: _userController.name.value,
+                  style: primaryTextStyle,
+                  decoration: InputDecoration(
+                    hintText: 'Alex keinnzal',
+                    hintStyle: primaryTextStyle,
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: subtitleColor,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
+                  onChanged: (value) => _userController.name.value = value,
+                )),
           ],
         ),
       );
@@ -81,18 +89,20 @@ class EditProfilePage extends StatelessWidget {
                 fontSize: 13,
               ),
             ),
-            TextFormField(
-              style: primaryTextStyle,
-              decoration: InputDecoration(
-                hintText: '@alexkeinn',
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: subtitleColor,
+            Obx(() => TextFormField(
+                  initialValue: _userController.username.value,
+                  style: primaryTextStyle,
+                  decoration: InputDecoration(
+                    hintText: '@alexkeinn',
+                    hintStyle: primaryTextStyle,
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: subtitleColor,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
+                  onChanged: (value) => _userController.username.value = value,
+                )),
           ],
         ),
       );
@@ -112,18 +122,20 @@ class EditProfilePage extends StatelessWidget {
                 fontSize: 13,
               ),
             ),
-            TextFormField(
-              style: primaryTextStyle,
-              decoration: InputDecoration(
-                hintText: 'alex.kein@gmail.com',
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: subtitleColor,
+            Obx(() => TextFormField(
+                  initialValue: _userController.email.value,
+                  style: primaryTextStyle,
+                  decoration: InputDecoration(
+                    hintText: 'alex.kein@gmail.com',
+                    hintStyle: primaryTextStyle,
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: subtitleColor,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
+                  onChanged: (value) => _userController.email.value = value,
+                )),
           ],
         ),
       );
@@ -159,7 +171,7 @@ class EditProfilePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: backgroundColor3,
-      appBar: header(), // header sekarang sesuai dengan tipe PreferredSizeWidget
+      appBar: header(),
       body: content(),
       resizeToAvoidBottomInset: false,
     );

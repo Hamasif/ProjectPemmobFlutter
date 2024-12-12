@@ -1,40 +1,22 @@
-class UserModel {
-  int? id;
-  String? name;
-  String? email;
-  String? username;
-  String? profilePhotoUrl;
-  String? token;
+class User {
+  final int id;
+  final String name;
+  final String email;
+  final String token;
 
-  // Constructor with null safety
-  UserModel({
-    this.id,
-    this.name,
-    this.email,
-    this.username,
-    this.profilePhotoUrl,
-    this.token,
+  User({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.token,
   });
 
-  // Named constructor fromJson with null safety
-  UserModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    email = json['email'];
-    username = json['username'];
-    profilePhotoUrl = json['profile_photo_url'];
-    token = json['token'];
-  }
-
-  // toJson method
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'username': username,
-      'profile_photo_url': profilePhotoUrl,
-      'token': token,
-    };
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      token: json['token'],
+    );
   }
 }

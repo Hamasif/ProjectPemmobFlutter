@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:projectpemmob/controllers/auth_controller.dart';
 import 'package:projectpemmob/theme.dart';
 
 class SignInPage extends StatelessWidget {
+  SignInPage({Key? key}) : super(key: key);
+
+  final AuthController _authController = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+
     Widget header() {
       return Container(
         margin: EdgeInsets.only(top: 30),
@@ -17,9 +26,7 @@ class SignInPage extends StatelessWidget {
                 fontWeight: semiBold,
               ),
             ),
-            SizedBox(
-              height: 2,
-            ),
+            SizedBox(height: 2),
             Text(
               'Sign In to Continue',
               style: subtitleTextStyle,
@@ -45,9 +52,7 @@ class SignInPage extends StatelessWidget {
             SizedBox(height: 12),
             Container(
               height: 50,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
@@ -59,11 +64,10 @@ class SignInPage extends StatelessWidget {
                       'assets/Email_Icon.png',
                       width: 17,
                     ),
-                    SizedBox(
-                      width: 16,
-                    ),
+                    SizedBox(width: 16),
                     Expanded(
                       child: TextFormField(
+                        controller: emailController,
                         style: primaryTextStyle,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Your Email Address',
@@ -96,9 +100,7 @@ class SignInPage extends StatelessWidget {
             SizedBox(height: 12),
             Container(
               height: 50,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
@@ -110,11 +112,10 @@ class SignInPage extends StatelessWidget {
                       'assets/Password_Icon.png',
                       width: 17,
                     ),
-                    SizedBox(
-                      width: 16,
-                    ),
+                    SizedBox(width: 16),
                     Expanded(
                       child: TextFormField(
+                        controller: passwordController,
                         style: primaryTextStyle,
                         obscureText: true,
                         decoration: InputDecoration.collapsed(
@@ -133,31 +134,63 @@ class SignInPage extends StatelessWidget {
     }
 
     Widget signInButton() {
-      return Container(
-        height: 50,
-        width: double.infinity,
-        margin: EdgeInsets.only(
-          top: 30,
-        ),
-        child: TextButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/home');
-          },
-          style: TextButton.styleFrom(
-            backgroundColor: primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+      return Obx(() => Container(
+            height: 50,
+            width: double.infinity,
+            margin: EdgeInsets.only(top: 30),
+            child: TextButton(
+              onPressed: _authController.isLoading.value
+                  ? null
+                  : () async {
+                      if (emailController.text.isEmpty ||
+                          passwordController.text.isEmpty) {
+                        Get.snackbar('Error', 'Email and Password are required',
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white);
+                        return;
+                      }
+
+                      bool success = await _authController.login(
+                          emailController.text, passwordController.text);
+
+                      if (success) {
+                        // Navigate to home page
+                        Get.offAllNamed('/home');
+                      }
+                    },
+              style: TextButton.styleFrom(
+                backgroundColor: _authController.isLoading.value
+                    ? Colors.grey
+                    : primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: _authController.isLoading.value
+                  ? CircularProgressIndicator(color: Colors.white)
+                  : Text(
+                      'Sign In',
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 16,
+                        fontWeight: medium,
+                      ),
+                    ),
             ),
-          ),
-          child: Text(
-            'Sign In',
-            style: primaryTextStyle.copyWith(
-              fontSize: 16,
-              fontWeight: medium,
-            ),
-          ),
-        ),
-      );
+          ));
+    }
+
+    Widget errorMessage() {
+      return Obx(() => _authController.errorMessage.value.isNotEmpty
+          ? Container(
+              margin: EdgeInsets.only(top: 10),
+              child: Text(
+                _authController.errorMessage.value,
+                style: TextStyle(color: Colors.red, fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : SizedBox.shrink());
     }
 
     Widget footer() {
@@ -174,7 +207,7 @@ class SignInPage extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/sign-up');
+                Navigator.pushReplacementNamed(context, '/sign-up');
               },
               child: Text(
                 'Sign Up',
@@ -190,25 +223,25 @@ class SignInPage extends StatelessWidget {
     }
 
     return Scaffold(
-        backgroundColor: backgroundColor1,
-        resizeToAvoidBottomInset: false,
-        body: SafeArea(
-          child: Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: defaultMargin,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                header(),
-                emailInput(),
-                passwordInput(),
-                signInButton(),
-                Spacer(),
-                footer(),
-              ],
-            ),
+      backgroundColor: backgroundColor1,
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              header(),
+              emailInput(),
+              passwordInput(),
+              errorMessage(),
+              signInButton(),
+              Spacer(),
+              footer(),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
