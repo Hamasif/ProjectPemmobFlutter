@@ -247,4 +247,8 @@ class AuthController extends GetxController {
       errorMessage.value = 'Error clearing local data';
     }
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ce2e830 (frontend)

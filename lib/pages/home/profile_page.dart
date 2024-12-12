@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:get/get.dart';
 import 'package:projectpemmob/theme.dart';
 import 'package:projectpemmob/controllers/auth_controller.dart';
+=======
+import 'package:projectpemmob/models/user_model.dart';
+import 'package:projectpemmob/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
+
+
+import '../../theme.dart';
+>>>>>>> ce2e830 (frontend)
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -10,6 +19,9 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
     Widget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -23,8 +35,8 @@ class ProfilePage extends StatelessWidget {
             child: Row(
               children: [
                 ClipOval(
-                  child: Image.asset(
-                    'assets/image_profile.png',
+                  child: Image.network(
+                    user.profilePhotoUrl,
                     width: 64,
                   ),
                 ),
@@ -35,6 +47,7 @@ class ProfilePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+<<<<<<< HEAD
                       Obx(() => Text(
                             'Halo, ${_authController.name.value.isEmpty ? "Guest" : _authController.name.value}',
                             style: primaryTextStyle.copyWith(
@@ -50,6 +63,21 @@ class ProfilePage extends StatelessWidget {
                               fontSize: 16,
                             ),
                           )),
+=======
+                      Text(
+                        'Hallo, ${user.name}',
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 24,
+                          fontWeight: semiBold,
+                        ),
+                      ),
+                      Text(
+                        '@${user.username}',
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                        ),
+                      ),
+>>>>>>> ce2e830 (frontend)
                     ],
                   ),
                 ),
@@ -71,6 +99,7 @@ class ProfilePage extends StatelessWidget {
       );
     }
 
+<<<<<<< HEAD
     Widget menuItem(String text, {VoidCallback? onTap}) {
       return GestureDetector(
         onTap: onTap,
@@ -93,6 +122,23 @@ class ProfilePage extends StatelessWidget {
               ),
             ],
           ),
+=======
+    Widget menuItem(String text) {
+      return Container(
+        margin: EdgeInsets.only(top: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              text,
+              style: secondaryTextStyle.copyWith(fontSize: 13),
+            ),
+            Icon(
+              Icons.chevron_right,
+              color: primaryTextColor,
+            ),
+          ],
+>>>>>>> ce2e830 (frontend)
         ),
       );
     }
@@ -100,10 +146,10 @@ class ProfilePage extends StatelessWidget {
     Widget content() {
       return Expanded(
         child: Container(
+          width: double.infinity,
           padding: EdgeInsets.symmetric(
             horizontal: defaultMargin,
           ),
-          width: double.infinity,
           decoration: BoxDecoration(
             color: backgroundColor3,
           ),
@@ -123,10 +169,14 @@ class ProfilePage extends StatelessWidget {
               menuItem(
                 'Edit Profile',
                 onTap: () {
+<<<<<<< HEAD
                   Navigator.pushNamed(
                     context,
                     '/edit-profile',
                   );
+=======
+                  Navigator.pushNamed(context, '/edit-profile');
+>>>>>>> ce2e830 (frontend)
                 },
               ),
               menuItem(

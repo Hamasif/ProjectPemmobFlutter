@@ -1,28 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:projectpemmob/providers/cart_provider.dart';
 import 'package:projectpemmob/theme.dart';
 import 'package:projectpemmob/widgets/cart_card.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+
     header() {
       return AppBar(
         backgroundColor: backgroundColor1,
         centerTitle: true,
         title: Text(
           'Your Cart',
-          style: primaryTextStyle,
         ),
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back, // Ikon back
-            color: Colors.white, // Warna putih
-          ),
-          onPressed: () {
-            Navigator.pop(context); // Aksi kembali
-          },
-        ),
       );
     }
 
@@ -59,15 +53,16 @@ class CartPage extends StatelessWidget {
                 top: 20,
               ),
               child: TextButton(
-                style: TextButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    )),
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
-                      context, '/home', (Route) => false);
+                      context, '/home', (route) => false);
                 },
+                style: TextButton.styleFrom(
+                  backgroundColor: primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
                 child: Text(
                   'Explore Store',
                   style: primaryTextStyle.copyWith(
@@ -76,7 +71,7 @@ class CartPage extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       );
@@ -87,13 +82,15 @@ class CartPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           horizontal: defaultMargin,
         ),
-        children: [
-          CartCard(),
-        ],
+        children: cartProvider.carts
+            .map(
+              (cart) => CartCard(cart),
+            )
+            .toList(),
       );
     }
 
-    Widget customButtomNav() {
+    Widget customBottomNav() {
       return Container(
         height: 180,
         child: Column(
@@ -110,7 +107,7 @@ class CartPage extends StatelessWidget {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\$287,96',
+                    '\$${cartProvider.totalPrice()}',
                     style: priceTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -173,8 +170,9 @@ class CartPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor3,
       appBar: header(),
-      body: content(),
-      bottomNavigationBar: customButtomNav(),
+      body: cartProvider.carts.length == 0 ? emptyCart() : content(),
+      bottomNavigationBar:
+          cartProvider.carts.length == 0 ? SizedBox() : customBottomNav(),
     );
   }
 }

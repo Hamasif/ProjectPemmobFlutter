@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:get/get.dart';
 import 'package:projectpemmob/theme.dart';
 import 'package:projectpemmob/controllers/auth_controller.dart';
+=======
+import 'package:projectpemmob/models/user_model.dart';
+import 'package:projectpemmob/providers/auth_provider.dart';
+import 'package:projectpemmob/theme.dart';
+import 'package:provider/provider.dart';
+>>>>>>> ce2e830 (frontend)
 
 class EditProfilePage extends StatelessWidget {
   EditProfilePage({Key? key}) : super(key: key);
@@ -10,13 +17,13 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PreferredSizeWidget header() {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
+    header() {
       return AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.close,
-            color: primaryTextColor,
-          ),
+          icon: Icon(Icons.close),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -26,7 +33,10 @@ class EditProfilePage extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'Edit Profile',
+<<<<<<< HEAD
           style: primaryTextStyle,
+=======
+>>>>>>> ce2e830 (frontend)
         ),
         actions: [
           IconButton(
@@ -34,9 +44,13 @@ class EditProfilePage extends StatelessWidget {
               Icons.check,
               color: primaryColor,
             ),
+<<<<<<< HEAD
             onPressed: () {
               // Tambahkan aksi simpan di sini
             },
+=======
+            onPressed: () {},
+>>>>>>> ce2e830 (frontend)
           )
         ],
       );
@@ -56,6 +70,7 @@ class EditProfilePage extends StatelessWidget {
                 fontSize: 13,
               ),
             ),
+<<<<<<< HEAD
             Obx(() => TextFormField(
                   initialValue: _userController.name.value,
                   style: primaryTextStyle,
@@ -67,6 +82,16 @@ class EditProfilePage extends StatelessWidget {
                         color: subtitleColor,
                       ),
                     ),
+=======
+            TextFormField(
+              style: primaryTextStyle,
+              decoration: InputDecoration(
+                hintText: user.name,
+                hintStyle: primaryTextStyle,
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: subtitleColor,
+>>>>>>> ce2e830 (frontend)
                   ),
                   onChanged: (value) => _userController.name.value = value,
                 )),
@@ -89,6 +114,7 @@ class EditProfilePage extends StatelessWidget {
                 fontSize: 13,
               ),
             ),
+<<<<<<< HEAD
             Obx(() => TextFormField(
                   initialValue: _userController.username.value,
                   style: primaryTextStyle,
@@ -100,6 +126,16 @@ class EditProfilePage extends StatelessWidget {
                         color: subtitleColor,
                       ),
                     ),
+=======
+            TextFormField(
+              style: primaryTextStyle,
+              decoration: InputDecoration(
+                hintText: '@${user.username}',
+                hintStyle: primaryTextStyle,
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: subtitleColor,
+>>>>>>> ce2e830 (frontend)
                   ),
                   onChanged: (value) => _userController.username.value = value,
                 )),
@@ -122,6 +158,7 @@ class EditProfilePage extends StatelessWidget {
                 fontSize: 13,
               ),
             ),
+<<<<<<< HEAD
             Obx(() => TextFormField(
                   initialValue: _userController.email.value,
                   style: primaryTextStyle,
@@ -133,6 +170,16 @@ class EditProfilePage extends StatelessWidget {
                         color: subtitleColor,
                       ),
                     ),
+=======
+            TextFormField(
+              style: primaryTextStyle,
+              decoration: InputDecoration(
+                hintText: user.email,
+                hintStyle: primaryTextStyle,
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: subtitleColor,
+>>>>>>> ce2e830 (frontend)
                   ),
                   onChanged: (value) => _userController.email.value = value,
                 )),
@@ -157,9 +204,14 @@ class EditProfilePage extends StatelessWidget {
                 top: defaultMargin,
               ),
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image: AssetImage('assets/image_profile.png'))),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                    user.profilePhotoUrl,
+                  ),
+                ),
+              ),
             ),
             nameInput(),
             usernameInput(),

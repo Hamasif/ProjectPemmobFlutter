@@ -41,4 +41,8 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
   end
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> ce2e830 (frontend)

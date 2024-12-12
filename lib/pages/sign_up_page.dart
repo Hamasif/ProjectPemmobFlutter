@@ -1,8 +1,31 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:get/get.dart';
 import 'package:projectpemmob/controllers/auth_controller.dart';
+=======
+import 'package:projectpemmob/providers/auth_provider.dart';
+>>>>>>> ce2e830 (frontend)
 import 'package:projectpemmob/theme.dart';
+import 'package:projectpemmob/widgets/loading_button.dart';
+import 'package:provider/provider.dart';
 
+class SignUpPage extends StatefulWidget {
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController nameController = TextEditingController(text: '');
+
+  TextEditingController usernameController = TextEditingController(text: '');
+
+  TextEditingController emailController = TextEditingController(text: '');
+
+  TextEditingController passwordController = TextEditingController(text: '');
+
+  bool isLoading = false;
+
+<<<<<<< HEAD
 class SignUpPage extends StatelessWidget {
   SignUpPage({Key? key}) : super(key: key);
 
@@ -16,6 +39,40 @@ class SignUpPage extends StatelessWidget {
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController confirmPasswordController =
         TextEditingController();
+=======
+  @override
+  Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    handleSignUp() async {
+      setState(() {
+        isLoading = true;
+      });
+
+      if (await authProvider.register(
+        name: nameController.text,
+        username: usernameController.text,
+        email: emailController.text,
+        password: passwordController.text,
+      )) {
+        Navigator.pushNamed(context, '/home');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: alertColor,
+            content: Text(
+              'Gagal Register!',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+>>>>>>> ce2e830 (frontend)
 
     Widget header() {
       return Container(
@@ -32,7 +89,7 @@ class SignUpPage extends StatelessWidget {
             ),
             SizedBox(height: 2),
             Text(
-              'Register and Happy Shopping',
+              'Register and Happy Shoping',
               style: subtitleTextStyle,
             ),
           ],
@@ -53,7 +110,9 @@ class SignUpPage extends StatelessWidget {
                 fontWeight: medium,
               ),
             ),
-            SizedBox(height: 12),
+            SizedBox(
+              height: 12,
+            ),
             Container(
               height: 50,
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -65,7 +124,7 @@ class SignUpPage extends StatelessWidget {
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/Username_Icon.png',
+                      'assets/icon_name.png',
                       width: 17,
                     ),
                     SizedBox(width: 16),
@@ -73,12 +132,13 @@ class SignUpPage extends StatelessWidget {
                       child: TextFormField(
                         controller: nameController,
                         style: primaryTextStyle,
+                        controller: nameController,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Your Full Name',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -101,7 +161,9 @@ class SignUpPage extends StatelessWidget {
                 fontWeight: medium,
               ),
             ),
-            SizedBox(height: 12),
+            SizedBox(
+              height: 12,
+            ),
             Container(
               height: 50,
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -113,7 +175,7 @@ class SignUpPage extends StatelessWidget {
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/Union.png',
+                      'assets/icon_username.png',
                       width: 17,
                     ),
                     SizedBox(width: 16),
@@ -121,12 +183,13 @@ class SignUpPage extends StatelessWidget {
                       child: TextFormField(
                         controller: usernameController,
                         style: primaryTextStyle,
+                        controller: usernameController,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Your Username',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -149,7 +212,9 @@ class SignUpPage extends StatelessWidget {
                 fontWeight: medium,
               ),
             ),
-            SizedBox(height: 12),
+            SizedBox(
+              height: 12,
+            ),
             Container(
               height: 50,
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -161,7 +226,7 @@ class SignUpPage extends StatelessWidget {
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/Email_Icon.png',
+                      'assets/icon_email.png',
                       width: 17,
                     ),
                     SizedBox(width: 16),
@@ -169,12 +234,13 @@ class SignUpPage extends StatelessWidget {
                       child: TextFormField(
                         controller: emailController,
                         style: primaryTextStyle,
+                        controller: emailController,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Your Email Address',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -197,7 +263,9 @@ class SignUpPage extends StatelessWidget {
                 fontWeight: medium,
               ),
             ),
-            SizedBox(height: 12),
+            SizedBox(
+              height: 12,
+            ),
             Container(
               height: 50,
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -209,7 +277,7 @@ class SignUpPage extends StatelessWidget {
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/Password_Icon.png',
+                      'assets/icon_password.png',
                       width: 17,
                     ),
                     SizedBox(width: 16),
@@ -218,12 +286,13 @@ class SignUpPage extends StatelessWidget {
                         controller: passwordController,
                         style: primaryTextStyle,
                         obscureText: true,
+                        controller: passwordController,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Your Password',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -235,6 +304,7 @@ class SignUpPage extends StatelessWidget {
 
     Widget confirmPasswordInput() {
       return Container(
+<<<<<<< HEAD
         margin: EdgeInsets.only(top: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,6 +315,17 @@ class SignUpPage extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: medium,
               ),
+=======
+        height: 50,
+        width: double.infinity,
+        margin: EdgeInsets.only(top: 30),
+        child: TextButton(
+          onPressed: handleSignUp,
+          style: TextButton.styleFrom(
+            backgroundColor: primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+>>>>>>> ce2e830 (frontend)
             ),
             SizedBox(height: 12),
             Container(
@@ -375,7 +456,7 @@ class SignUpPage extends StatelessWidget {
               },
               child: Text(
                 'Sign In',
-                style: purpelTextStyle.copyWith(
+                style: purpleTextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: medium,
                 ),
@@ -391,6 +472,7 @@ class SignUpPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
+<<<<<<< HEAD
           margin: EdgeInsets.symmetric(horizontal: defaultMargin),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -407,6 +489,24 @@ class SignUpPage extends StatelessWidget {
               footer(),
             ],
           ),
+=======
+          margin: EdgeInsets.symmetric(
+            horizontal: defaultMargin,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              header(),
+              nameInput(),
+              usernameInput(),
+              emailInput(),
+              passwordInput(),
+              isLoading ? LoadingButton() : signUpButton(),
+              Spacer(),
+              footer(),
+            ],
+          ),
+>>>>>>> ce2e830 (frontend)
         ),
       ),
     );
