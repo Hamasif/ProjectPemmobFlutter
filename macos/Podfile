@@ -41,7 +41,11 @@ post_install do |installer|
     flutter_additional_macos_build_settings(target)
   end
 <<<<<<< HEAD
+<<<<<<< HEAD
 end
 =======
 end
 >>>>>>> ce2e830 (frontend)
+=======
+end
+>>>>>>> ce2e830158d7ef2b9ea28f4a85e34176001af0a6

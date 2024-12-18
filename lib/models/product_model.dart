@@ -13,6 +13,7 @@ class ProductModel {
   List<GalleryModel> galleries;
 
   ProductModel({
+<<<<<<< HEAD
     required this.id,
     required this.name,
     required this.price,
@@ -36,6 +37,32 @@ class ProductModel {
             .toList(),
         createdAt = DateTime.parse(json['created_at']),
         updatedAt = DateTime.parse(json['updated_at']);
+=======
+    this.id,
+    this.name,
+    this.price,
+    this.description,
+    this.tags,
+    this.category,
+    this.createdAt,
+    this.updatedAt,
+    this.galleries,
+  });
+
+  ProductModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    price = double.parse(json['price'].toString());
+    description = json['description'];
+    tags = json['tags'];
+    category = CategoryModel.fromJson(json['category']);
+    galleries = json['galleries']
+        .map<GalleryModel>((gallery) => GalleryModel.fromJson(gallery))
+        .toList();
+    createdAt = DateTime.parse(json['created_at']);
+    updatedAt = DateTime.parse(json['updated_at']);
+  }
+>>>>>>> ce2e830158d7ef2b9ea28f4a85e34176001af0a6
 
   Map<String, dynamic> toJson() {
     return {
@@ -46,12 +73,18 @@ class ProductModel {
       'tags': tags,
       'category': category.toJson(),
       'galleries': galleries.map((gallery) => gallery.toJson()).toList(),
+<<<<<<< HEAD
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
+=======
+      'created_at': createdAt.toString(),
+      'updated_at': updatedAt.toString(),
+>>>>>>> ce2e830158d7ef2b9ea28f4a85e34176001af0a6
     };
   }
 }
 
+<<<<<<< HEAD
 class UninitializedProductModel extends ProductModel {
   UninitializedProductModel()
       : super(
@@ -67,3 +100,6 @@ class UninitializedProductModel extends ProductModel {
         );
 }
 
+=======
+class UninitializedProductModel extends ProductModel {}
+>>>>>>> ce2e830158d7ef2b9ea28f4a85e34176001af0a6

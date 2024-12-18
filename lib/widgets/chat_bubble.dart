@@ -11,7 +11,11 @@ class ChatBubble extends StatelessWidget {
   ChatBubble({
     this.isSender = false,
     this.text = '',
+<<<<<<< HEAD
     required this.product, required String message,
+=======
+    this.product,
+>>>>>>> ce2e830158d7ef2b9ea28f4a85e34176001af0a6
   });
 
   @override
