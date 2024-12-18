@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:get/get.dart';
-import 'package:projectpemmob/controllers/auth_controller.dart';
-=======
 import 'package:projectpemmob/providers/auth_provider.dart';
->>>>>>> ce2e830 (frontend)
 import 'package:projectpemmob/theme.dart';
 import 'package:projectpemmob/widgets/loading_button.dart';
 import 'package:provider/provider.dart';
@@ -21,17 +16,6 @@ class _SignInPageState extends State<SignInPage> {
 
   bool isLoading = false;
 
-<<<<<<< HEAD
-class SignInPage extends StatelessWidget {
-  SignInPage({Key? key}) : super(key: key);
-
-  final AuthController _authController = Get.put(AuthController());
-
-  @override
-  Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-=======
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
@@ -62,7 +46,6 @@ class SignInPage extends StatelessWidget {
         isLoading = false;
       });
     }
->>>>>>> ce2e830 (frontend)
 
     Widget header() {
       return Container(
@@ -77,7 +60,9 @@ class SignInPage extends StatelessWidget {
                 fontWeight: semiBold,
               ),
             ),
-            SizedBox(height: 2),
+            SizedBox(
+              height: 2,
+            ),
             Text(
               'Sign In to Continue',
               style: subtitleTextStyle,
@@ -105,7 +90,9 @@ class SignInPage extends StatelessWidget {
             ),
             Container(
               height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
               decoration: BoxDecoration(
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
@@ -117,10 +104,11 @@ class SignInPage extends StatelessWidget {
                       'assets/icon_email.png',
                       width: 17,
                     ),
-                    SizedBox(width: 16),
+                    SizedBox(
+                      width: 16,
+                    ),
                     Expanded(
                       child: TextFormField(
-                        controller: emailController,
                         style: primaryTextStyle,
                         controller: emailController,
                         decoration: InputDecoration.collapsed(
@@ -156,7 +144,9 @@ class SignInPage extends StatelessWidget {
             ),
             Container(
               height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
               decoration: BoxDecoration(
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
@@ -168,10 +158,11 @@ class SignInPage extends StatelessWidget {
                       'assets/icon_password.png',
                       width: 17,
                     ),
-                    SizedBox(width: 16),
+                    SizedBox(
+                      width: 16,
+                    ),
                     Expanded(
                       child: TextFormField(
-                        controller: passwordController,
                         style: primaryTextStyle,
                         obscureText: true,
                         controller: passwordController,
@@ -191,50 +182,6 @@ class SignInPage extends StatelessWidget {
     }
 
     Widget signInButton() {
-<<<<<<< HEAD
-      return Obx(() => Container(
-            height: 50,
-            width: double.infinity,
-            margin: EdgeInsets.only(top: 30),
-            child: TextButton(
-              onPressed: _authController.isLoading.value
-                  ? null
-                  : () async {
-                      if (emailController.text.isEmpty ||
-                          passwordController.text.isEmpty) {
-                        Get.snackbar('Error', 'Email and Password are required',
-                            snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: Colors.red,
-                            colorText: Colors.white);
-                        return;
-                      }
-
-                      bool success = await _authController.login(
-                          emailController.text, passwordController.text);
-
-                      if (success) {
-                        // Navigate to home page
-                        Get.offAllNamed('/home');
-                      }
-                    },
-              style: TextButton.styleFrom(
-                backgroundColor: _authController.isLoading.value
-                    ? Colors.grey
-                    : primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: _authController.isLoading.value
-                  ? CircularProgressIndicator(color: Colors.white)
-                  : Text(
-                      'Sign In',
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: medium,
-                      ),
-                    ),
-=======
       return Container(
         height: 50,
         width: double.infinity,
@@ -245,22 +192,17 @@ class SignInPage extends StatelessWidget {
             backgroundColor: primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
->>>>>>> ce2e830 (frontend)
             ),
-          ));
-    }
-
-    Widget errorMessage() {
-      return Obx(() => _authController.errorMessage.value.isNotEmpty
-          ? Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Text(
-                _authController.errorMessage.value,
-                style: TextStyle(color: Colors.red, fontSize: 14),
-                textAlign: TextAlign.center,
-              ),
-            )
-          : SizedBox.shrink());
+          ),
+          child: Text(
+            'Sign In',
+            style: primaryTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: medium,
+            ),
+          ),
+        ),
+      );
     }
 
     Widget footer() {
@@ -277,7 +219,7 @@ class SignInPage extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushReplacementNamed(context, '/sign-up');
+                Navigator.pushNamed(context, '/sign-up');
               },
               child: Text(
                 'Sign Up',
@@ -297,21 +239,6 @@ class SignInPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
-<<<<<<< HEAD
-          margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              header(),
-              emailInput(),
-              passwordInput(),
-              errorMessage(),
-              signInButton(),
-              Spacer(),
-              footer(),
-            ],
-          ),
-=======
           margin: EdgeInsets.symmetric(
             horizontal: defaultMargin,
           ),
@@ -326,7 +253,6 @@ class SignInPage extends StatelessWidget {
               footer(),
             ],
           ),
->>>>>>> ce2e830 (frontend)
         ),
       ),
     );

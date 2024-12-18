@@ -3,14 +3,13 @@ class GalleryModel {
   String url;
 
   GalleryModel({
-    this.id,
-    this.url,
+    required this.id,
+    required this.url,
   });
 
-  GalleryModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    url = json['url'];
-  }
+  GalleryModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        url = json['url'];
 
   Map<String, dynamic> toJson() {
     return {
@@ -18,4 +17,12 @@ class GalleryModel {
       'url': url,
     };
   }
+}
+
+class UninitializedGalleryModel extends GalleryModel {
+  UninitializedGalleryModel()
+      : super(
+          id: 0,
+          url: '',
+        );
 }

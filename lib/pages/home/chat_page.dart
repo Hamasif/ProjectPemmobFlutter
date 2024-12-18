@@ -92,40 +92,40 @@ class ChatPage extends StatelessWidget {
       );
     }
 
-    Widget content() {
-      return StreamBuilder<List<MessageModel>>(
-          stream: MessageService()
-              .getMessagesByUserId(userId: authProvider.user.id),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data.length == 0) {
-                return emptyChat();
-              }
+    // Widget content() {
+    //   return StreamBuilder<List<MessageModel>>(
+    //       stream: MessageService()
+    //           .getMessagesByUserId(userId: authProvider.user.id),
+    //       builder: (context, snapshot) {
+    //         if (snapshot.hasData) {
+    //           if (snapshot.data.length == 0) {
+    //             return emptyChat();
+    //           }
 
-              return Expanded(
-                child: Container(
-                  width: double.infinity,
-                  color: backgroundColor3,
-                  child: ListView(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: defaultMargin,
-                    ),
-                    children: [
-                      ChatTile(snapshot.data[snapshot.data.length - 1]),
-                    ],
-                  ),
-                ),
-              );
-            } else {
-              return emptyChat();
-            }
-          });
-    }
+    //           return Expanded(
+    //             child: Container(
+    //               width: double.infinity,
+    //               color: backgroundColor3,
+    //               child: ListView(
+    //                 padding: EdgeInsets.symmetric(
+    //                   horizontal: defaultMargin,
+    //                 ),
+    //                 children: [
+    //                   ChatTile(snapshot.data[snapshot.data.length - 1]),
+    //                 ],
+    //               ),
+    //             ),
+    //           );
+    //         } else {
+    //           return emptyChat();
+    //         }
+    //       });
+    // }
 
     return Column(
       children: [
         header(),
-        content(),
+        //content(),
       ],
     );
   }

@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:projectpemmob/models/product_model.dart';
-import 'package:projectpemmob/pages/detail_chat_page.dart';
 import 'package:projectpemmob/providers/cart_provider.dart';
 import 'package:projectpemmob/providers/wishlist_provider.dart';
 import 'package:projectpemmob/theme.dart';
@@ -401,14 +400,14 @@ class _ProductPageState extends State<ProductPage> {
               child: Row(
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailChatPage(widget.product),
-                        ),
-                      );
-                    },
+                    // onTap: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => DetailChatPage(widget.product),
+                    //     ),
+                    //   );
+                    // },
                     child: Container(
                       width: 54,
                       height: 54,

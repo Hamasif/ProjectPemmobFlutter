@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:projectpemmob/models/user_model.dart';
 import 'package:projectpemmob/services/auth_service.dart';
 
-
 class AuthProvider with ChangeNotifier {
-  UserModel _user;
+  late UserModel _user;
 
   UserModel get user => _user;
 
@@ -14,10 +13,10 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<bool> register({
-    String name,
-    String username,
-    String email,
-    String password,
+    required String name,
+    required String username,
+    required String email,
+    required String password,
   }) async {
     try {
       UserModel user = await AuthService().register(
@@ -28,6 +27,7 @@ class AuthProvider with ChangeNotifier {
       );
 
       _user = user;
+      notifyListeners();
       return true;
     } catch (e) {
       print(e);
@@ -36,8 +36,8 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<bool> login({
-    String email,
-    String password,
+    required String email,
+    required String password,
   }) async {
     try {
       UserModel user = await AuthService().login(
@@ -46,6 +46,7 @@ class AuthProvider with ChangeNotifier {
       );
 
       _user = user;
+      notifyListeners();
       return true;
     } catch (e) {
       print(e);

@@ -30,7 +30,7 @@ class TransactionService {
     );
 
     var response = await http.post(
-      url,
+      url as Uri,
       headers: headers,
       body: body,
     );

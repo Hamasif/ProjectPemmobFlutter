@@ -3,6 +3,7 @@ import 'package:projectpemmob/models/user_model.dart';
 import 'package:projectpemmob/providers/auth_provider.dart';
 import 'package:projectpemmob/providers/product_provider.dart';
 import 'package:projectpemmob/theme.dart';
+import 'package:projectpemmob/widgets/product_card.dart';
 import 'package:projectpemmob/widgets/product_tile.dart';
 import 'package:provider/provider.dart';
 

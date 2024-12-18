@@ -1,22 +1,20 @@
 import 'package:projectpemmob/models/product_model.dart';
 
-
 class CartModel {
   int id;
   ProductModel product;
   int quantity;
 
   CartModel({
-    this.id,
-    this.product,
-    this.quantity,
+    required this.id,
+    required this.product,
+    required this.quantity,
   });
 
-  CartModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    product = ProductModel.fromJson(json['product']);
-    quantity = json['quantity'];
-  }
+  CartModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        product = ProductModel.fromJson(json['product']),
+        quantity = json['quantity'];
 
   Map<String, dynamic> toJson() {
     return {

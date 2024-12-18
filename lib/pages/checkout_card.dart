@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projectpemmob/models/cart_model.dart';
 import 'package:projectpemmob/theme.dart';
 
 class CheckoutCard extends StatelessWidget {
+  CheckoutCard(CartModel cart);
+
   @override
   Widget build(BuildContext context) {
     return Container(

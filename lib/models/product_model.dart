@@ -13,30 +13,29 @@ class ProductModel {
   List<GalleryModel> galleries;
 
   ProductModel({
-    this.id,
-    this.name,
-    this.price,
-    this.description,
-    this.tags,
-    this.category,
-    this.createdAt,
-    this.updatedAt,
-    this.galleries,
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.description,
+    required this.tags,
+    required this.category,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.galleries,
   });
 
-  ProductModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    price = double.parse(json['price'].toString());
-    description = json['description'];
-    tags = json['tags'];
-    category = CategoryModel.fromJson(json['category']);
-    galleries = json['galleries']
-        .map<GalleryModel>((gallery) => GalleryModel.fromJson(gallery))
-        .toList();
-    createdAt = DateTime.parse(json['created_at']);
-    updatedAt = DateTime.parse(json['updated_at']);
-  }
+  ProductModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'],
+        price = double.parse(json['price'].toString()),
+        description = json['description'],
+        tags = json['tags'],
+        category = CategoryModel.fromJson(json['category']),
+        galleries = (json['galleries'] as List)
+            .map((gallery) => GalleryModel.fromJson(gallery))
+            .toList(),
+        createdAt = DateTime.parse(json['created_at']),
+        updatedAt = DateTime.parse(json['updated_at']);
 
   Map<String, dynamic> toJson() {
     return {
@@ -47,10 +46,24 @@ class ProductModel {
       'tags': tags,
       'category': category.toJson(),
       'galleries': galleries.map((gallery) => gallery.toJson()).toList(),
-      'created_at': createdAt.toString(),
-      'updated_at': updatedAt.toString(),
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
     };
   }
 }
 
-class UninitializedProductModel extends ProductModel {}
+class UninitializedProductModel extends ProductModel {
+  UninitializedProductModel()
+      : super(
+          id: 0,
+          name: '',
+          price: 0.0,
+          description: '',
+          tags: '',
+          category: CategoryModel(id: 0, name: ''), // Isi nilai default di sini
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          galleries: [],
+        );
+}
+
