@@ -11,7 +11,6 @@ class ChatTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-<<<<<<< HEAD
       // onTap: () {
       //   Navigator.push(
       //     context,
@@ -22,18 +21,6 @@ class ChatTile extends StatelessWidget {
       //     ),
       //   );
       // },
-=======
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailChatPage(
-              UninitializedProductModel(),
-            ),
-          ),
-        );
-      },
->>>>>>> ce2e830158d7ef2b9ea28f4a85e34176001af0a6
       child: Container(
         margin: EdgeInsets.only(top: 33),
         child: Column(

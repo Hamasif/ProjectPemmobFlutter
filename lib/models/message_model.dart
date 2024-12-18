@@ -11,7 +11,6 @@ class MessageModel {
   DateTime updatedAt;
 
   MessageModel({
-<<<<<<< HEAD
     required this.message,
     required this.userId,
     required this.userName,
@@ -33,30 +32,6 @@ class MessageModel {
             : ProductModel.fromJson(json['product']),
         createdAt = DateTime.parse(json['createdAt']),
         updatedAt = DateTime.parse(json['updatedAt']);
-=======
-    this.message,
-    this.userId,
-    this.userName,
-    this.userImage,
-    this.isFromUser,
-    this.product,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  MessageModel.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
-    userId = json['userId'];
-    userName = json['userName'];
-    userImage = json['userImage'];
-    isFromUser = json['isFromUser'];
-    product = json['product'].isEmpty
-        ? UninitializedProductModel()
-        : ProductModel.fromJson(json['product']);
-    createdAt = DateTime.parse(json['createdAt']);
-    updatedAt = DateTime.parse(json['updatedAt']);
-  }
->>>>>>> ce2e830158d7ef2b9ea28f4a85e34176001af0a6
 
   Map<String, dynamic> toJson() {
     return {
@@ -66,7 +41,6 @@ class MessageModel {
       'userImage': userImage,
       'isFromUser': isFromUser,
       'product': product is UninitializedProductModel ? {} : product.toJson(),
-<<<<<<< HEAD
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
     };
@@ -86,10 +60,3 @@ class UninitializedMessageModel extends MessageModel {
           updatedAt: DateTime.now(),
         );
 }
-=======
-      'createdAt': createdAt.toString(),
-      'updatedAt': updatedAt.toString(),
-    };
-  }
-}
->>>>>>> ce2e830158d7ef2b9ea28f4a85e34176001af0a6

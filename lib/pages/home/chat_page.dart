@@ -92,7 +92,6 @@ class ChatPage extends StatelessWidget {
       );
     }
 
-<<<<<<< HEAD
     // Widget content() {
     //   return StreamBuilder<List<MessageModel>>(
     //       stream: MessageService()
@@ -122,37 +121,6 @@ class ChatPage extends StatelessWidget {
     //         }
     //       });
     // }
-=======
-    Widget content() {
-      return StreamBuilder<List<MessageModel>>(
-          stream: MessageService()
-              .getMessagesByUserId(userId: authProvider.user.id),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data.length == 0) {
-                return emptyChat();
-              }
-
-              return Expanded(
-                child: Container(
-                  width: double.infinity,
-                  color: backgroundColor3,
-                  child: ListView(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: defaultMargin,
-                    ),
-                    children: [
-                      ChatTile(snapshot.data[snapshot.data.length - 1]),
-                    ],
-                  ),
-                ),
-              );
-            } else {
-              return emptyChat();
-            }
-          });
-    }
->>>>>>> ce2e830158d7ef2b9ea28f4a85e34176001af0a6
 
     return Column(
       children: [

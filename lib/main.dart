@@ -17,11 +17,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-<<<<<<< HEAD
   //await Firebase.initializeApp();
-=======
-  await Firebase.initializeApp();
->>>>>>> ce2e830158d7ef2b9ea28f4a85e34176001af0a6
   runApp(MyApp());
 }
 
